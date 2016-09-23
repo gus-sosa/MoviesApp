@@ -13,12 +13,13 @@ namespace MoviesApp.Controllers
 {
     public class MoviesController : Controller
     {
-        private MoviesAppContext db = new MoviesAppContext();
+        private UnitOfWork db = new UnitOfWork();
+
 
         // GET: Movies
         public async Task<ActionResult> Index()
         {
-            return View(await db.Movies.ToListAsync());
+            return View(await db.MoviesRespository.Get());
         }
 
         // GET: Movies/Details/5
@@ -28,7 +29,8 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = await db.Movies.FindAsync(id);
+
+            Movie movie = await db.MoviesRespository.GetByID(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -51,8 +53,8 @@ namespace MoviesApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Movies.Add(movie);
-                await db.SaveChangesAsync();
+                db.MoviesRespository.Insert(movie);
+                await db.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +68,7 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = await db.Movies.FindAsync(id);
+            Movie movie = await db.MoviesRespository.GetByID(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -83,8 +85,8 @@ namespace MoviesApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(movie).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.MoviesRespository.Update(movie);
+                await db.Save();
                 return RedirectToAction("Index");
             }
             return View(movie);
@@ -97,7 +99,8 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = await db.Movies.FindAsync(id);
+
+            Movie movie = await db.MoviesRespository.GetByID(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -110,9 +113,9 @@ namespace MoviesApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Movie movie = await db.Movies.FindAsync(id);
-            db.Movies.Remove(movie);
-            await db.SaveChangesAsync();
+            Movie movie = await db.MoviesRespository.GetByID(id);
+            db.MoviesRespository.Delete(movie);
+            await db.Save();
             return RedirectToAction("Index");
         }
 
