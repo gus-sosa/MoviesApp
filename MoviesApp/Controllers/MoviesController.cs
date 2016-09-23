@@ -15,7 +15,6 @@ namespace MoviesApp.Controllers
     {
         private UnitOfWork db = new UnitOfWork();
 
-
         // GET: Movies
         public async Task<ActionResult> Index()
         {

@@ -23,7 +23,7 @@ namespace MoviesApp.Models
                 return departmentRepository;
             }
         }
-        
+
         public async Task<int> Save()
         {
             return await context.SaveChangesAsync();
