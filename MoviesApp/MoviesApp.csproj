@@ -137,6 +137,10 @@
     <Compile Include="Migrations\201609230231058_InitialCreate.Designer.cs">
       <DependentUpon>201609230231058_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609230452245_DescriptionFieldAdded.cs" />
+    <Compile Include="Migrations\201609230452245_DescriptionFieldAdded.Designer.cs">
+      <DependentUpon>201609230452245_DescriptionFieldAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Context\MoviesAppContext.cs" />
@@ -197,6 +201,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201609230231058_InitialCreate.resx">
       <DependentUpon>201609230231058_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609230452245_DescriptionFieldAdded.resx">
+      <DependentUpon>201609230452245_DescriptionFieldAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

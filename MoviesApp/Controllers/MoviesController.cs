@@ -43,11 +43,11 @@ namespace MoviesApp.Controllers
         }
 
         // POST: Movies/Create
-        // To protect from over-posting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Tile,Director,DateRealeased")] Movie movie)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Tile,Director,DateRealeased,Description")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -75,11 +75,11 @@ namespace MoviesApp.Controllers
         }
 
         // POST: Movies/Edit/5
-        // To protect from over-posting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Tile,Director,DateRealeased")] Movie movie)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Tile,Director,DateRealeased,Description")] Movie movie)
         {
             if (ModelState.IsValid)
             {

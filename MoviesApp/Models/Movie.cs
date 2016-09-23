@@ -14,5 +14,7 @@ namespace MoviesApp.Models
         public string Director { get; set; }
 
         public DateTime DateRealeased { get; set; }
+
+        public string Description { get; set; }
     }
 }
