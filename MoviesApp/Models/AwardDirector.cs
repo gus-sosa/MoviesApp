@@ -13,6 +13,10 @@ namespace MoviesApp.Models
 
         public string Category { get; set; }
 
+        public int DirectorId { get; set; }
+
+        public int AwardId { get; set; }
+
         public virtual Director Director { get; set; }
 
         public virtual Award Award { get; set; }

@@ -155,7 +155,6 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -168,13 +167,21 @@
     <Compile Include="Migrations\201609230452245_DescriptionFieldAdded.Designer.cs">
       <DependentUpon>201609230452245_DescriptionFieldAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611061835122_DirectorModel.cs" />
+    <Compile Include="Migrations\201611061835122_DirectorModel.Designer.cs">
+      <DependentUpon>201611061835122_DirectorModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611061845467_ChangesInDirectorModel.cs" />
+    <Compile Include="Migrations\201611061845467_ChangesInDirectorModel.Designer.cs">
+      <DependentUpon>201611061845467_ChangesInDirectorModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Award.cs" />
     <Compile Include="Models\AwardDirector.cs" />
     <Compile Include="Models\Director.cs" />
     <Compile Include="Models\GenericRepository.cs" />
     <Compile Include="Models\Movie.cs" />
-    <Compile Include="Context\MoviesAppContext.cs" />
+    <Compile Include="Models\MoviesAppContext.cs" />
     <Compile Include="Models\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -213,11 +220,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Movies\Create.cshtml" />
-    <Content Include="Views\Movies\Delete.cshtml" />
-    <Content Include="Views\Movies\Details.cshtml" />
-    <Content Include="Views\Movies\Edit.cshtml" />
-    <Content Include="Views\Movies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -237,6 +239,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609230452245_DescriptionFieldAdded.resx">
       <DependentUpon>201609230452245_DescriptionFieldAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611061835122_DirectorModel.resx">
+      <DependentUpon>201611061835122_DirectorModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611061845467_ChangesInDirectorModel.resx">
+      <DependentUpon>201611061845467_ChangesInDirectorModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
