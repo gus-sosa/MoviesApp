@@ -154,7 +154,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\AwardsController.cs" />
+    <Compile Include="Controllers\DirectorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -174,6 +177,10 @@
     <Compile Include="Migrations\201611061845467_ChangesInDirectorModel.cs" />
     <Compile Include="Migrations\201611061845467_ChangesInDirectorModel.Designer.cs">
       <DependentUpon>201611061845467_ChangesInDirectorModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611061940287_ChangeInDataContext.cs" />
+    <Compile Include="Migrations\201611061940287_ChangeInDataContext.Designer.cs">
+      <DependentUpon>201611061940287_ChangeInDataContext.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Award.cs" />
@@ -220,6 +227,21 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Movies\Create.cshtml" />
+    <Content Include="Views\Movies\Delete.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Movies\Edit.cshtml" />
+    <Content Include="Views\Movies\Index.cshtml" />
+    <Content Include="Views\Directors\Create.cshtml" />
+    <Content Include="Views\Directors\Delete.cshtml" />
+    <Content Include="Views\Directors\Details.cshtml" />
+    <Content Include="Views\Directors\Edit.cshtml" />
+    <Content Include="Views\Directors\Index.cshtml" />
+    <Content Include="Views\Awards\Create.cshtml" />
+    <Content Include="Views\Awards\Delete.cshtml" />
+    <Content Include="Views\Awards\Details.cshtml" />
+    <Content Include="Views\Awards\Edit.cshtml" />
+    <Content Include="Views\Awards\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611061845467_ChangesInDirectorModel.resx">
       <DependentUpon>201611061845467_ChangesInDirectorModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611061940287_ChangeInDataContext.resx">
+      <DependentUpon>201611061940287_ChangeInDataContext.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

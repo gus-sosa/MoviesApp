@@ -14,11 +14,17 @@ namespace MoviesApp.Models
         // automatically whenever you change your model schema, please use data migrations.
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
-    
+
         public MoviesAppContext() : base("name=MoviesAppContext")
         {
         }
 
-        public System.Data.Entity.DbSet<MoviesApp.Models.Movie> Movies { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+
+        public DbSet<Director> Directors { get; set; }
+
+        public DbSet<Award> Awards { get; set; }
+
+        public DbSet<AwardDirector> AwardDirectors { get; set; }
     }
 }
