@@ -11,112 +11,107 @@ using MoviesApp.Models;
 
 namespace MoviesApp.Controllers
 {
-    public class MoviesController : Controller
+    public class AwardsController : Controller
     {
         private MoviesAppContext db = new MoviesAppContext();
 
-        // GET: Movies
+        // GET: Awards
         public async Task<ActionResult> Index()
         {
-            var movies = db.Movies.Include(m => m.Director);
-            return View(await movies.ToListAsync());
+            return View(await db.Awards.ToListAsync());
         }
 
-        // GET: Movies/Details/5
+        // GET: Awards/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = await db.Movies.FindAsync(id);
-            if (movie == null)
+            Award award = await db.Awards.FindAsync(id);
+            if (award == null)
             {
                 return HttpNotFound();
             }
-            return View(movie);
+            return View(award);
         }
 
-        // GET: Movies/Create
+        // GET: Awards/Create
         public ActionResult Create()
         {
-            ViewBag.DirectorId = new SelectList(db.Directors, "DirectorID", "Name");
             return View();
         }
 
-        // POST: Movies/Create
+        // POST: Awards/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Tile,DirectorId,DateRealeased,Description")] Movie movie)
+        public async Task<ActionResult> Create([Bind(Include = "AwardID,Name,Description")] Award award)
         {
             if (ModelState.IsValid)
             {
-                db.Movies.Add(movie);
+                db.Awards.Add(award);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DirectorId = new SelectList(db.Directors, "DirectorID", "Name", movie.DirectorId);
-            return View(movie);
+            return View(award);
         }
 
-        // GET: Movies/Edit/5
+        // GET: Awards/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = await db.Movies.FindAsync(id);
-            if (movie == null)
+            Award award = await db.Awards.FindAsync(id);
+            if (award == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DirectorId = new SelectList(db.Directors, "DirectorID", "Name", movie.DirectorId);
-            return View(movie);
+            return View(award);
         }
 
-        // POST: Movies/Edit/5
+        // POST: Awards/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Tile,DirectorId,DateRealeased,Description")] Movie movie)
+        public async Task<ActionResult> Edit([Bind(Include = "AwardID,Name,Description")] Award award)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(movie).State = EntityState.Modified;
+                db.Entry(award).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.DirectorId = new SelectList(db.Directors, "DirectorID", "Name", movie.DirectorId);
-            return View(movie);
+            return View(award);
         }
 
-        // GET: Movies/Delete/5
+        // GET: Awards/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = await db.Movies.FindAsync(id);
-            if (movie == null)
+            Award award = await db.Awards.FindAsync(id);
+            if (award == null)
             {
                 return HttpNotFound();
             }
-            return View(movie);
+            return View(award);
         }
 
-        // POST: Movies/Delete/5
+        // POST: Awards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Movie movie = await db.Movies.FindAsync(id);
-            db.Movies.Remove(movie);
+            Award award = await db.Awards.FindAsync(id);
+            db.Awards.Remove(award);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

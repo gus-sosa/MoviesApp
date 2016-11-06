@@ -11,10 +11,12 @@ namespace MoviesApp.Models
 
         public string Tile { get; set; }
 
-        public string Director { get; set; }
+        public int DirectorId { get; set; }
 
         public DateTime DateRealeased { get; set; }
 
         public string Description { get; set; }
+
+        public virtual Director Director { get; set; }
     }
 }

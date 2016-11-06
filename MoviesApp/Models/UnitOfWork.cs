@@ -9,18 +9,51 @@ namespace MoviesApp.Models
     public class UnitOfWork : IDisposable
     {
         private MoviesAppContext context = new MoviesAppContext();
-        private GenericRepository<Movie> departmentRepository;
+        private GenericRepository<Movie> movieRepository;
+        private GenericRepository<Director> directorRepository;
+        private GenericRepository<Award> awardRepository;
+        private GenericRepository<AwardDirector> awardDirectorRepository;
 
         public GenericRepository<Movie> MoviesRespository
         {
             get
             {
 
-                if (this.departmentRepository == null)
+                if (this.movieRepository == null)
                 {
-                    this.departmentRepository = new GenericRepository<Movie>(context);
+                    this.movieRepository = new GenericRepository<Movie>(context);
                 }
-                return departmentRepository;
+                return movieRepository;
+            }
+        }
+
+        public GenericRepository<Director> DirectorRepository
+        {
+            get
+            {
+                if (directorRepository == null)
+                    directorRepository = new GenericRepository<Director>(context);
+                return directorRepository;
+            }
+        }
+
+        public GenericRepository<Award> AwardRepository
+        {
+            get
+            {
+                if (awardRepository == null)
+                    awardRepository = new GenericRepository<Award>(context);
+                return awardRepository;
+            }
+        }
+
+        public GenericRepository<AwardDirector> AwardDirectorRepository
+        {
+            get
+            {
+                if (awardDirectorRepository == null)
+                    awardDirectorRepository = new GenericRepository<AwardDirector>(context);
+                return awardDirectorRepository;
             }
         }
 
