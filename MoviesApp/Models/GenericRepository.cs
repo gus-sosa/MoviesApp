@@ -8,7 +8,7 @@ using System.Web;
 
 namespace MoviesApp.Models
 {
-    public class GenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         internal MoviesAppContext context;
         internal DbSet<TEntity> dbSet;

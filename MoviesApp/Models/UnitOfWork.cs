@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
 namespace MoviesApp.Models
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private MoviesAppContext context = new MoviesAppContext();
         private GenericRepository<Movie> movieRepository;
         private GenericRepository<Director> directorRepository;
         private GenericRepository<Award> awardRepository;
         private GenericRepository<AwardDirector> awardDirectorRepository;
+
+        public UnitOfWork()
+        {
+
+        }
 
         public GenericRepository<Movie> MoviesRespository
         {
