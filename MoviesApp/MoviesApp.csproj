@@ -169,6 +169,9 @@
       <DependentUpon>201609230452245_DescriptionFieldAdded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Award.cs" />
+    <Compile Include="Models\AwardDirector.cs" />
+    <Compile Include="Models\Director.cs" />
     <Compile Include="Models\GenericRepository.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Context\MoviesAppContext.cs" />
