@@ -1,61 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
 namespace MoviesApp.Models
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private MoviesAppContext context = new MoviesAppContext();
-        private GenericRepository<Movie> movieRepository;
-        private GenericRepository<Director> directorRepository;
-        private GenericRepository<Award> awardRepository;
-        private GenericRepository<AwardDirector> awardDirectorRepository;
 
-        public GenericRepository<Movie> MoviesRespository
+        public UnitOfWork()
         {
-            get
-            {
-
-                if (this.movieRepository == null)
-                {
-                    this.movieRepository = new GenericRepository<Movie>(context);
-                }
-                return movieRepository;
-            }
+            MovieRepository = new MovieRepository(context);
+            DirectorRepository = new DirectorRepository(context);
+            AwardRepository = new AwardRepository(context);
         }
 
-        public GenericRepository<Director> DirectorRepository
-        {
-            get
-            {
-                if (directorRepository == null)
-                    directorRepository = new GenericRepository<Director>(context);
-                return directorRepository;
-            }
-        }
+        public IMovieRepository MovieRepository { get; private set; }
 
-        public GenericRepository<Award> AwardRepository
-        {
-            get
-            {
-                if (awardRepository == null)
-                    awardRepository = new GenericRepository<Award>(context);
-                return awardRepository;
-            }
-        }
+        public IDirectorRepository DirectorRepository { get; private set; }
 
-        public GenericRepository<AwardDirector> AwardDirectorRepository
-        {
-            get
-            {
-                if (awardDirectorRepository == null)
-                    awardDirectorRepository = new GenericRepository<AwardDirector>(context);
-                return awardDirectorRepository;
-            }
-        }
+        public IAwardRepository AwardRepository { get; private set; }
 
         public async Task<int> Save()
         {
