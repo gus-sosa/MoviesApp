@@ -40,9 +40,9 @@ namespace MoviesApp.App_Start
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            container.RegisterType<IMovieRepository, MovieRepository>(new ContainerControlledLifetimeManager())
-                     .RegisterType<IDirectorRepository, DirectorRepository>(new ContainerControlledLifetimeManager())
-                     .RegisterType<IAwardRepository, AwardRepository>(new ContainerControlledLifetimeManager())
+            container.RegisterType<IMovieRepository, MovieRepository>(new PerRequestLifetimeManager())
+                     .RegisterType<IDirectorRepository, DirectorRepository>(new PerRequestLifetimeManager())
+                     .RegisterType<IAwardRepository, AwardRepository>(new PerRequestLifetimeManager())
                      .RegisterType<IUnitOfWork, UnitOfWork>(new PerRequestLifetimeManager());
         }
     }
