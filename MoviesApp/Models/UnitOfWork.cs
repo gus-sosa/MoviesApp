@@ -11,11 +11,11 @@ namespace MoviesApp.Models
     {
         private MoviesAppContext context = new MoviesAppContext();
 
-        public UnitOfWork()
+        public UnitOfWork(IMovieRepository movieRepository, IDirectorRepository directorRepository, IAwardRepository awardRepository)
         {
-            MovieRepository = new MovieRepository(context);
-            DirectorRepository = new DirectorRepository(context);
-            AwardRepository = new AwardRepository(context);
+            MovieRepository = movieRepository;
+            DirectorRepository = directorRepository;
+            AwardRepository = awardRepository;
         }
 
         public IMovieRepository MovieRepository { get; private set; }

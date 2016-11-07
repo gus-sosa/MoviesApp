@@ -43,7 +43,7 @@ namespace MoviesApp.App_Start
             container.RegisterType<IMovieRepository, MovieRepository>(new ContainerControlledLifetimeManager())
                      .RegisterType<IDirectorRepository, DirectorRepository>(new ContainerControlledLifetimeManager())
                      .RegisterType<IAwardRepository, AwardRepository>(new ContainerControlledLifetimeManager())
-                     .RegisterType<IUnitOfWork, UnitOfWork>(new ContainerControlledLifetimeManager());
+                     .RegisterType<IUnitOfWork, UnitOfWork>(new PerRequestLifetimeManager());
         }
     }
 }
