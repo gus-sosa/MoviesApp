@@ -13,12 +13,17 @@ namespace MoviesApp.Controllers
 {
     public class MoviesController : Controller
     {
-        private IUnitOfWork db = new UnitOfWork();
+        private IUnitOfWork unitOfWork;
+
+        public MoviesController(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
 
         // GET: Movies
         public async Task<ActionResult> Index()
         {
-            var movies = await db.MovieRepository.Get(includeProperties: nameof(Movie.Director));
+            var movies = await unitOfWork.MovieRepository.Get(includeProperties: nameof(Movie.Director));
             return View(movies);
         }
 
@@ -29,7 +34,7 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = await db.MovieRepository.GetByID(id);
+            Movie movie = await unitOfWork.MovieRepository.GetByID(id);
             if (movie == null)
                 return HttpNotFound();
             return View(movie);
@@ -38,7 +43,7 @@ namespace MoviesApp.Controllers
         // GET: Movies/Create
         public async Task<ActionResult> Create()
         {
-            ViewBag.DirectorId = new SelectList(await db.DirectorRepository.Get(), nameof(Director.DirectorID), "Name");
+            ViewBag.DirectorId = new SelectList(await unitOfWork.DirectorRepository.Get(), nameof(Director.DirectorID), "Name");
             return View();
         }
 
@@ -51,12 +56,12 @@ namespace MoviesApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.MovieRepository.Insert(movie);
-                await db.Save();
+                unitOfWork.MovieRepository.Insert(movie);
+                await unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.DirectorId = new SelectList(await db.DirectorRepository.Get(), nameof(Director.DirectorID), "Name", movie.DirectorId);
+            ViewBag.DirectorId = new SelectList(await unitOfWork.DirectorRepository.Get(), nameof(Director.DirectorID), "Name", movie.DirectorId);
             return View(movie);
         }
 
@@ -67,10 +72,10 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = await db.MovieRepository.GetByID(id);
+            Movie movie = await unitOfWork.MovieRepository.GetByID(id);
             if (movie == null)
                 return HttpNotFound();
-            ViewBag.DirectorId = new SelectList(await db.DirectorRepository.Get(), nameof(Director.DirectorID), "Name", movie.DirectorId);
+            ViewBag.DirectorId = new SelectList(await unitOfWork.DirectorRepository.Get(), nameof(Director.DirectorID), "Name", movie.DirectorId);
             return View(movie);
         }
 
@@ -83,11 +88,11 @@ namespace MoviesApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.MovieRepository.Update(movie);
-                await db.Save();
+                unitOfWork.MovieRepository.Update(movie);
+                await unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.DirectorId = new SelectList(await db.DirectorRepository.Get(), nameof(Director.DirectorID), "Name", movie.DirectorId);
+            ViewBag.DirectorId = new SelectList(await unitOfWork.DirectorRepository.Get(), nameof(Director.DirectorID), "Name", movie.DirectorId);
             return View(movie);
         }
 
@@ -98,7 +103,7 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = await db.MovieRepository.GetByID(id);
+            Movie movie = await unitOfWork.MovieRepository.GetByID(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -111,9 +116,9 @@ namespace MoviesApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Movie movie = await db.MovieRepository.GetByID(id);
-            db.MovieRepository.Delete(movie);
-            await db.Save();
+            Movie movie = await unitOfWork.MovieRepository.GetByID(id);
+            unitOfWork.MovieRepository.Delete(movie);
+            await unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
 
@@ -121,7 +126,7 @@ namespace MoviesApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
