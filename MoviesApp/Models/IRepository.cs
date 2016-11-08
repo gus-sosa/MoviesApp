@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -23,5 +24,7 @@ namespace MoviesApp.Models
         void Delete(TEntity entityToDelete);
 
         void Update(TEntity entityToUpdate);
+
+        DbContext Context { get; set; }
     }
 }

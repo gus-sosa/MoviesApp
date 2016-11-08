@@ -16,6 +16,10 @@ namespace MoviesApp.Models
             MovieRepository = movieRepository;
             DirectorRepository = directorRepository;
             AwardRepository = awardRepository;
+
+            movieRepository.Context = context;
+            directorRepository.Context = context;
+            awardRepository.Context = context;
         }
 
         public IMovieRepository MovieRepository { get; private set; }
