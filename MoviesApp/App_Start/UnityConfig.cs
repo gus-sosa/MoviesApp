@@ -2,6 +2,7 @@ using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using MoviesApp.Controllers;
+using MoviesApp.Models;
 
 namespace MoviesApp.App_Start
 {
@@ -39,7 +40,11 @@ namespace MoviesApp.App_Start
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            container.RegisterType<IInterface, MyClass>(new ContainerControlledLifetimeManager());
+            container.RegisterType<MoviesAppContext, MoviesAppContext>(new PerRequestLifetimeManager())
+                     .RegisterType<IMovieRepository, MovieRepository>(new PerRequestLifetimeManager())
+                     .RegisterType<IDirectorRepository, DirectorRepository>(new PerRequestLifetimeManager())
+                     .RegisterType<IAwardRepository, AwardRepository>(new PerRequestLifetimeManager())
+                     .RegisterType<IUnitOfWork, UnitOfWork>(new PerRequestLifetimeManager());
         }
     }
 }

@@ -13,12 +13,17 @@ namespace MoviesApp.Controllers
 {
     public class DirectorsController : Controller
     {
-        private IUnitOfWork db = new UnitOfWork();
+        private IUnitOfWork unitOfWork;
+
+        public DirectorsController(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
 
         // GET: Directors
         public async Task<ActionResult> Index()
         {
-            return View(await db.DirectorRepository.Get());
+            return View(await unitOfWork.DirectorRepository.Get());
         }
 
         // GET: Directors/Details/5
@@ -28,7 +33,7 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Director director = await db.DirectorRepository.GetByID(id);
+            Director director = await unitOfWork.DirectorRepository.GetByID(id);
             if (director == null)
             {
                 return HttpNotFound();
@@ -51,8 +56,8 @@ namespace MoviesApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.DirectorRepository.Insert(director);
-                await db.Save();
+                unitOfWork.DirectorRepository.Insert(director);
+                await unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
 
@@ -66,7 +71,7 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Director director = await db.DirectorRepository.GetByID(id);
+            Director director = await unitOfWork.DirectorRepository.GetByID(id);
             if (director == null)
             {
                 return HttpNotFound();
@@ -83,8 +88,8 @@ namespace MoviesApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.DirectorRepository.Update(director);
-                await db.Save();
+                unitOfWork.DirectorRepository.Update(director);
+                await unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
             return View(director);
@@ -97,7 +102,7 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Director director = await db.DirectorRepository.GetByID(id);
+            Director director = await unitOfWork.DirectorRepository.GetByID(id);
             if (director == null)
             {
                 return HttpNotFound();
@@ -110,9 +115,9 @@ namespace MoviesApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Director director = await db.DirectorRepository.GetByID(id);
-            db.DirectorRepository.Delete(director);
-            await db.Save();
+            Director director = await unitOfWork.DirectorRepository.GetByID(id);
+            unitOfWork.DirectorRepository.Delete(director);
+            await unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
 
@@ -120,7 +125,7 @@ namespace MoviesApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

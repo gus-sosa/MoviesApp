@@ -19,6 +19,8 @@ namespace MoviesApp.Models
             this.dbSet = context.Set<TEntity>();
         }
 
+        public DbContext Context { get { return context; } set { context = value as MoviesAppContext; } }
+
         public virtual async Task<IEnumerable<TEntity>> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,

@@ -13,12 +13,17 @@ namespace MoviesApp.Controllers
 {
     public class AwardsController : Controller
     {
-        private IUnitOfWork db = new UnitOfWork();
+        private IUnitOfWork unitOfWork;
+
+        public AwardsController(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
 
         // GET: Awards
         public async Task<ActionResult> Index()
         {
-            return View(await db.AwardRepository.Get());
+            return View(await unitOfWork.AwardRepository.Get());
         }
 
         // GET: Awards/Details/5
@@ -28,7 +33,7 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Award award = await db.AwardRepository.GetByID(id);
+            Award award = await unitOfWork.AwardRepository.GetByID(id);
             if (award == null)
             {
                 return HttpNotFound();
@@ -51,8 +56,8 @@ namespace MoviesApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.AwardRepository.Insert(award);
-                await db.Save();
+                unitOfWork.AwardRepository.Insert(award);
+                await unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
 
@@ -66,7 +71,7 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Award award = await db.AwardRepository.GetByID(id);
+            Award award = await unitOfWork.AwardRepository.GetByID(id);
             if (award == null)
             {
                 return HttpNotFound();
@@ -83,8 +88,8 @@ namespace MoviesApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.AwardRepository.Update(award);
-                await db.Save();
+                unitOfWork.AwardRepository.Update(award);
+                await unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
             return View(award);
@@ -97,7 +102,7 @@ namespace MoviesApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Award award = await db.AwardRepository.GetByID(id);
+            Award award = await unitOfWork.AwardRepository.GetByID(id);
             if (award == null)
             {
                 return HttpNotFound();
@@ -110,9 +115,9 @@ namespace MoviesApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Award award = await db.AwardRepository.GetByID(id);
-            db.AwardRepository.Delete(award);
-            await db.Save();
+            Award award = await unitOfWork.AwardRepository.GetByID(id);
+            unitOfWork.AwardRepository.Delete(award);
+            await unitOfWork.Save();
             return RedirectToAction(nameof(Index));
         }
 
@@ -120,7 +125,7 @@ namespace MoviesApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
