@@ -1,7 +1,5 @@
 using System;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using MoviesApp.Controllers;
 using MoviesApp.Models;
 
 namespace MoviesApp.App_Start
