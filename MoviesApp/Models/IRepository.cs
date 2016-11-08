@@ -24,7 +24,5 @@ namespace MoviesApp.Models
         void Delete(TEntity entityToDelete);
 
         void Update(TEntity entityToUpdate);
-
-        DbContext Context { get; set; }
     }
 }

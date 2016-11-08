@@ -9,17 +9,15 @@ namespace MoviesApp.Models
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private MoviesAppContext context = new MoviesAppContext();
+        private MoviesAppContext context;
 
-        public UnitOfWork(IMovieRepository movieRepository, IDirectorRepository directorRepository, IAwardRepository awardRepository)
+        public UnitOfWork(IMovieRepository movieRepository, IDirectorRepository directorRepository, IAwardRepository awardRepository, MoviesAppContext context)
         {
             MovieRepository = movieRepository;
             DirectorRepository = directorRepository;
             AwardRepository = awardRepository;
 
-            movieRepository.Context = context;
-            directorRepository.Context = context;
-            awardRepository.Context = context;
+            this.context = context;
         }
 
         public IMovieRepository MovieRepository { get; private set; }
