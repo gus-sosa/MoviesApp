@@ -14,4 +14,12 @@
 @Html.Grid(Model).Columns(col =>
 {
     col.Add(m => m.Director.Name).Titled("Director Name").Filterable(true).Sortable(true);
-})
+    col.Add(m => m.Tile).Titled("Movie title").Filterable(true).Sortable(true);
+    col.Add(m => m.DateRealeased).Titled("Time").Sortable(true);
+    col.Add(m => m.Description).Filterable(true).Sortable(true);
+    col.Add(m => m.Id).Titled("Actions").Sanitized(false).Encoded(false).Filterable(false)
+    .RenderValueAs(m => string.Format("<a href=\"{0}\">Edit</a> | <a href=\"{1}\">Details</a> | <a href=\"{2}\">Delete</a>",
+        Url.Action(nameof(MoviesController.Edit), new { id = m.Id }),
+        Url.Action(nameof(MoviesController.Details), new { id = m.Id }),
+        Url.Action(nameof(MoviesController.Delete), new { id = m.Id })));
+}).Filterable(true).WithPaging(25)

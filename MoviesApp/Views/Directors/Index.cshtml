@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MoviesApp.Models.Director>
+﻿@model IEnumerable<Director>
 
 @{
     ViewBag.Title = "Index";
@@ -10,37 +10,15 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Biography)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Birthday)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Biography)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DirectorID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DirectorID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DirectorID })
-        </td>
-    </tr>
-}
-
-</table>
+@Html.Grid(Model).Columns(col =>
+{
+    col.Add(m => m.Name).Titled("Director Name").Filterable(true).Sortable(true);
+    col.Add(m => m.Birthday).Titled("Birthday").Filterable(true).Sortable(true);
+    col.Add(m => m.Biography).Titled("Biography").Sortable(true).Filterable(true);
+    col.Add(m => m.DirectorID).Titled("Actions").Sanitized(false).Encoded(false).Filterable(false)
+    .RenderValueAs(m => string.Format("<a href=\"{0}\">Edit</a> | <a href=\"{1}\">Details</a> | <a href=\"{2}\">Delete</a>",
+        Url.Action(nameof(DirectorsController.Edit), new { id = m.DirectorID }),
+        Url.Action(nameof(DirectorsController.Details), new { id = m.DirectorID }),
+        Url.Action(nameof(DirectorsController.Delete), new { id = m.DirectorID })));
+}).Filterable(true).WithPaging(25)

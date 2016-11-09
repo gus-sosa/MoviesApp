@@ -30,7 +30,7 @@ namespace MoviesApp
                 "~/Content/Gridmvc.css"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/gridmvc").Include(
+            bundles.Add(new ScriptBundle("~/bundles/gridmvc-js").Include(
                 "~/Scripts/gridmvc.min.js"
                 ));
         }
