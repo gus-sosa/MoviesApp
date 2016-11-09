@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Movie>
-@using GridMvc.Html
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,4 +11,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@Html.Grid(Model).AutoGenerateColumns()
+@Html.Grid(Model).Columns(col =>
+{
+    col.Add(m => m.Director.Name).Titled("Director Name").Filterable(true).Sortable(true);
+})
