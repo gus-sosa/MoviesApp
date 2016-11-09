@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MoviesApp.Models.Movie>
+﻿@model IEnumerable<Movie>
 
 @{
     ViewBag.Title = "Index";
@@ -10,43 +10,16 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Director.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tile)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateRealeased)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Director.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateRealeased)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+@Html.Grid(Model).Columns(col =>
+{
+    col.Add(m => m.Director.Name).Titled("Director Name").Filterable(true).Sortable(true);
+    col.Add(m => m.Tile).Titled("Movie title").Filterable(true).Sortable(true);
+    col.Add(m => m.DateRealeased).Titled("Time").Sortable(true);
+    col.Add(m => m.Description).Filterable(true).Sortable(true);
+    col.Add(m => m.Id).Titled("Actions").Sanitized(false).Encoded(false).Filterable(false)
+    .RenderValueAs(m => string.Format("<a href=\"{0}\">Edit</a> | <a href=\"{1}\">Details</a> | <a href=\"{2}\">Delete</a>",
+        Url.Action(nameof(MoviesController.Edit), new { id = m.Id }),
+        Url.Action(nameof(MoviesController.Details), new { id = m.Id }),
+        Url.Action(nameof(MoviesController.Delete), new { id = m.Id })));
+}).Filterable(true).WithPaging(25)

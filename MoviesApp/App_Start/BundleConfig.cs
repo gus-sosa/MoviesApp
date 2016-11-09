@@ -25,6 +25,14 @@ namespace MoviesApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/gridmvc").Include(
+                "~/Content/Gridmvc.css"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/gridmvc-js").Include(
+                "~/Scripts/gridmvc.min.js"
+                ));
         }
     }
 }

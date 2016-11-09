@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MoviesApp.Models.Award>
+﻿@model IEnumerable<Award>
 
 @{
     ViewBag.Title = "Index";
@@ -10,31 +10,12 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AwardID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AwardID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AwardID })
-        </td>
-    </tr>
-}
-
-</table>
+@Html.Grid(Model).Columns(col =>
+{
+    col.Add(m => m.Name).Filterable(true).Sortable(true);
+    col.Add(m => m.Description).Filterable(true).Sortable(true);
+    col.Add().RenderValueAs(m => string.Format("<a href=\"{0}\">Edit</a> | <a href=\"{1}\">Details</a> | <a href=\"{2}\">Delete</a>",
+        Url.Action(nameof(AwardsController.Edit), new { id = m.AwardID }),
+        Url.Action(nameof(AwardsController.Details), new { id = m.AwardID }),
+        Url.Action(nameof(AwardsController.Delete), new { id = m.AwardID })));
+}).Filterable(true).WithPaging(25)
