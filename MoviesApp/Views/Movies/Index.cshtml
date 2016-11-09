@@ -1,5 +1,5 @@
-﻿@model IEnumerable<MoviesApp.Models.Movie>
-
+﻿@model IEnumerable<Movie>
+@using GridMvc.Html
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,43 +10,5 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Director.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tile)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateRealeased)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Director.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateRealeased)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+@Html.Grid(Model).AutoGenerateColumns()
